@@ -70,7 +70,8 @@ class ModelTrainer:
                 "catboost":{
                     'depth': [6,8,10],
                     'learning_rate': [0.01, 0.05, 0.1],
-                    'iterations': [30, 50, 100]
+                    'iterations': [30, 50, 100],
+                    'verbose': [0]
                 },
                 "adaboost":{
                     'learning_rate':[.1,.01,0.5,.001],
