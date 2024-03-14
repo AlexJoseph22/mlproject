@@ -42,14 +42,47 @@ class ModelTrainer:
                 "decision_tree": DecisionTreeRegressor(random_state=42),
                 "gradient_boosting": GradientBoostingRegressor(random_state=42),
                 "linear_regression": LinearRegression(),
-                "k_nearest_neighbors": KNeighborsRegressor(),
                 "xgb": XGBRegressor(),
                 "catboost": CatBoostRegressor(random_state=42, verbose=0),
                 "adaboost": AdaBoostRegressor(random_state=42)
             }
 
+            
+            params={
+                "random_forest":{
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+
+                "decision_tree": {
+                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                },
+
+                "gradient_boosting":{
+                    'learning_rate':[.1,.01,.05,.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                "linear_regression":{},
+                "xgb":{
+                    'learning_rate':[.1,.01,.05,.001],
+                    'n_estimators': [8,16,32,64,128,256]
+                },
+                "catboost":{
+                    'depth': [6,8,10],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'iterations': [30, 50, 100]
+                },
+                "adaboost":{
+                    'learning_rate':[.1,.01,0.5,.001],
+                    # 'loss':['linear','square','exponential'],
+                    'n_estimators': [8,16,32,64,128,256]
+                }
+                
+            }
+
+
             model_report = evaluate_models(X_train=X_train, y_train=y_train, X_test=X_test, 
-                                           y_test=y_test, models=models)
+                                           y_test=y_test, models=models, params=params)
             
             best_model_score = max(sorted(list(model_report.values())))
 
